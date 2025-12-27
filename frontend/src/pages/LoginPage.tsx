@@ -56,8 +56,8 @@ const LoginPage = () => {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
 
-            // Redirect to dashboard
-            navigate('/dashboard');
+            // Redirect to work centers
+            navigate('/dashboard/work-centers');
         } catch (error: any) {
             if (error.response?.status === 401) {
                 // Invalid credentials
@@ -126,8 +126,8 @@ const LoginPage = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 className={`w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-900 border ${errors.email
-                                        ? 'border-red-300 dark:border-red-700'
-                                        : 'border-slate-200 dark:border-slate-700'
+                                    ? 'border-red-300 dark:border-red-700'
+                                    : 'border-slate-200 dark:border-slate-700'
                                     } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none`}
                                 placeholder="john@example.com"
                             />
@@ -149,8 +149,8 @@ const LoginPage = () => {
                                     value={formData.password}
                                     onChange={handleChange}
                                     className={`w-full px-4 py-3 pr-12 rounded-lg bg-slate-50 dark:bg-slate-900 border ${errors.password
-                                            ? 'border-red-300 dark:border-red-700'
-                                            : 'border-slate-200 dark:border-slate-700'
+                                        ? 'border-red-300 dark:border-red-700'
+                                        : 'border-slate-200 dark:border-slate-700'
                                         } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none`}
                                     placeholder="••••••••"
                                 />

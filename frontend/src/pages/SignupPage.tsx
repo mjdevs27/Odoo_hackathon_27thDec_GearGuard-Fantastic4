@@ -83,8 +83,8 @@ const SignupPage = () => {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
 
-            // Redirect to dashboard
-            navigate('/dashboard');
+            // Redirect to work centers
+            navigate('/dashboard/work-centers');
         } catch (error: any) {
             if (error.response?.data?.field) {
                 setErrors({ [error.response.data.field]: error.response.data.error });
