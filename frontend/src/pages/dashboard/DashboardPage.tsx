@@ -4,6 +4,7 @@ import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Search, AlertTriangle, Users, ClipboardList, RefreshCw, Plus } from 'lucide-react';
 import axios from 'axios';
+import DashboardNavbar from '../../components/DashboardNavbar';
 
 // Types
 interface MaintenanceRequest {
@@ -98,7 +99,9 @@ const KanbanColumn = ({ stage, title, requests, onDrop, color, onCardClick }: Ka
 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: ItemTypes.CARD,
-        drop: (item: { id: string }) => onDrop(item.id, stage),
+        drop: (item: { id: string }) => {
+            onDrop(item.id, stage);
+        },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
         }),
@@ -108,23 +111,18 @@ const KanbanColumn = ({ stage, title, requests, onDrop, color, onCardClick }: Ka
         drop(ref);
     }, [drop]);
 
-    const colorStyles: Record<string, string> = {
-        blue: 'bg-blue-500',
-        yellow: 'bg-yellow-500',
-        green: 'bg-green-500',
-        red: 'bg-red-500',
-    };
-
     return (
         <div
             ref={ref}
-            className={`flex-1 min-w-[240px] bg-slate-50 dark:bg-slate-900/50 rounded-xl p-3 transition-all ${isOver ? 'ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-950/20' : ''
+            className={`flex-1 bg-slate-100 dark:bg-slate-900 rounded-lg p-3 min-w-[280px] transition-all ${isOver ? 'ring-2 ring-blue-400 ring-offset-2 dark:ring-offset-slate-950' : ''
                 }`}
         >
-            <div className="flex items-center gap-2 mb-3 px-1">
-                <div className={`w-2 h-2 rounded-full ${colorStyles[color]}`}></div>
-                <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">{title}</h3>
-                <span className="ml-auto text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded-full">
+            <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                    <div className={`w-3 h-3 rounded-full ${color}`}></div>
+                    <h3 className="font-medium text-slate-700 dark:text-slate-200">{title}</h3>
+                </div>
+                <span className="bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium px-2 py-1 rounded-full">
                     {requests.length}
                 </span>
             </div>
@@ -140,7 +138,6 @@ const KanbanColumn = ({ stage, title, requests, onDrop, color, onCardClick }: Ka
 // Main Dashboard Component
 const DashboardPage = () => {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState('Dashboard');
     const [searchQuery, setSearchQuery] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -153,8 +150,6 @@ const DashboardPage = () => {
         openRequests: 0,
         overdueCount: 0
     });
-
-    const tabs = ['Maintenance', 'Dashboard', 'Maintenance Calendar', 'Equipment', 'Reporting', 'Teams'];
 
     // Fetch data from API
     const fetchData = useCallback(async () => {
@@ -217,11 +212,13 @@ const DashboardPage = () => {
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <div className="fixed inset-0 bg-slate-50 dark:bg-slate-950 overflow-auto">
-                <div className="p-6">
+            <div className="min-h-screen w-full bg-slate-50 dark:bg-slate-950">
+                <DashboardNavbar />
+
+                <div className="w-full px-6 py-6">
                     {/* Header */}
                     <div className="mb-6 flex items-center justify-between">
-                        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">1. Dashboard</h1>
+                        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Maintenance Dashboard</h1>
                         <button
                             onClick={fetchData}
                             className="flex items-center gap-2 px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -237,22 +234,6 @@ const DashboardPage = () => {
                             {error}
                         </div>
                     )}
-
-                    {/* Navigation Tabs */}
-                    <div className="flex items-center gap-1 mb-6 bg-white dark:bg-slate-900 rounded-lg p-1 border border-slate-200 dark:border-slate-800 w-fit">
-                        {tabs.map((tab) => (
-                            <button
-                                key={tab}
-                                onClick={() => setActiveTab(tab)}
-                                className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${activeTab === tab
-                                    ? 'bg-blue-600 text-white shadow-sm'
-                                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-                                    }`}
-                            >
-                                {tab}
-                            </button>
-                        ))}
-                    </div>
 
                     {/* Controls Row */}
                     <div className="flex items-center gap-4 mb-6">

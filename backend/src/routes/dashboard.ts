@@ -197,4 +197,45 @@ router.get('/equipment', async (req: Request, res: Response) => {
     }
 });
 
+// Get calendar events (maintenance requests with scheduled dates)
+router.get('/calendar', async (req: Request, res: Response) => {
+    try {
+        const query = `
+            SELECT 
+                mr.id,
+                mr.subject,
+                mr.description,
+                mr.stage,
+                mr.priority,
+                mr.scheduled_at,
+                mr.duration_minutes,
+                e.name as equipment_name,
+                au.full_name as technician_name
+            FROM app.maintenance_request mr
+            LEFT JOIN app.equipment e ON mr.equipment_id = e.id
+            LEFT JOIN app.app_user au ON mr.assigned_to_id = au.id
+            WHERE mr.scheduled_at IS NOT NULL
+            ORDER BY mr.scheduled_at ASC
+        `;
+
+        const result = await pool.query(query);
+
+        const events = result.rows.map((row: any) => ({
+            id: row.id,
+            title: row.subject,
+            start: row.scheduled_at,
+            end: new Date(new Date(row.scheduled_at).getTime() + (row.duration_minutes || 60) * 60000).toISOString(),
+            priority: row.priority,
+            stage: row.stage,
+            equipment: row.equipment_name || '',
+            technician: row.technician_name || ''
+        }));
+
+        res.json(events);
+    } catch (error) {
+        console.error('Error fetching calendar events:', error);
+        res.status(500).json({ error: 'Failed to fetch calendar events' });
+    }
+});
+
 export default router;

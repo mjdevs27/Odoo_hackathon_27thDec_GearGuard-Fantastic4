@@ -6,6 +6,12 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import WorkCenters from './pages/dashboard/WorkCenters';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import MaintenanceRequestPage from './pages/dashboard/MaintenanceRequestPage';
+import EquipmentListPage from './pages/dashboard/EquipmentListPage';
+import EquipmentFormPage from './pages/dashboard/EquipmentFormPage';
+import EquipmentCategoriesPage from './pages/dashboard/EquipmentCategoriesPage';
+import MaintenanceCalendarPage from './pages/dashboard/MaintenanceCalendarPage';
+import TeamsPage from './pages/dashboard/TeamsPage';
+import ReportingPage from './pages/dashboard/ReportingPage';
 import './App.css';
 
 // Protected Route Component
@@ -37,12 +43,22 @@ function App() {
         <Route path="/dashboard/request/new" element={<ProtectedRoute><MaintenanceRequestPage /></ProtectedRoute>} />
         <Route path="/dashboard/request/:id" element={<ProtectedRoute><MaintenanceRequestPage /></ProtectedRoute>} />
 
-        {/* Placeholder routes for future pages - will be added by teammates */}
-        {/* <Route path="/dashboard/equipment" element={<ProtectedRoute><Equipment /></ProtectedRoute>} /> */}
-        {/* <Route path="/dashboard/teams" element={<ProtectedRoute><Teams /></ProtectedRoute>} /> */}
-        {/* <Route path="/dashboard/calendar" element={<ProtectedRoute><Calendar /></ProtectedRoute>} /> */}
-        {/* <Route path="/dashboard/kanban" element={<ProtectedRoute><Kanban /></ProtectedRoute>} /> */}
-        {/* <Route path="/dashboard/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} /> */}
+        {/* Equipment Routes */}
+        <Route path="/dashboard/equipment" element={<ProtectedRoute><EquipmentListPage /></ProtectedRoute>} />
+        <Route path="/dashboard/equipment/new" element={<ProtectedRoute><EquipmentFormPage /></ProtectedRoute>} />
+        <Route path="/dashboard/equipment/:id" element={<ProtectedRoute><EquipmentFormPage /></ProtectedRoute>} />
+
+        {/* Equipment Categories Route */}
+        <Route path="/dashboard/equipment-categories" element={<ProtectedRoute><EquipmentCategoriesPage /></ProtectedRoute>} />
+
+        {/* Maintenance Calendar Route */}
+        <Route path="/dashboard/calendar" element={<ProtectedRoute><MaintenanceCalendarPage /></ProtectedRoute>} />
+
+        {/* Teams Route */}
+        <Route path="/dashboard/teams" element={<ProtectedRoute><TeamsPage /></ProtectedRoute>} />
+
+        {/* Reporting Route */}
+        <Route path="/dashboard/reporting" element={<ProtectedRoute><ReportingPage /></ProtectedRoute>} />
       </Routes>
     </Router>
   );

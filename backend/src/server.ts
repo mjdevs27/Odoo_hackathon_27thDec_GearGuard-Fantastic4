@@ -7,6 +7,8 @@ import equipmentRoutes from './routes/equipment';
 import requestRoutes from './routes/requests';
 import dashboardRoutes from './routes/dashboard';
 import maintenanceRoutes from './routes/maintenance';
+import categoriesRoutes from './routes/categories';
+import teamsRoutes from './routes/teams';
 
 // Load environment variables
 dotenv.config();
@@ -32,6 +34,8 @@ app.use('/api/equipment', equipmentRoutes);
 app.use('/api/requests', requestRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/maintenance', maintenanceRoutes);
+app.use('/api/categories', categoriesRoutes);
+app.use('/api/teams', teamsRoutes);
 
 // Health check endpoint
 app.get('/api/health', async (req: Request, res: Response) => {
