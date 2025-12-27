@@ -56,8 +56,8 @@ const LoginPage = () => {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
 
-            // Redirect to work centers
-            navigate('/dashboard/work-centers');
+            // Redirect to dashboard
+            navigate('/dashboard');
         } catch (error: any) {
             if (error.response?.status === 401) {
                 // Invalid credentials

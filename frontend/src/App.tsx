@@ -4,6 +4,8 @@ import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import WorkCenters from './pages/dashboard/WorkCenters';
+import DashboardPage from './pages/dashboard/DashboardPage';
+import MaintenanceRequestPage from './pages/dashboard/MaintenanceRequestPage';
 import './App.css';
 
 // Protected Route Component
@@ -28,13 +30,15 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
         {/* Protected Dashboard Routes */}
-        {/* Redirect /dashboard to /dashboard/work-centers */}
-        <Route path="/dashboard" element={<Navigate to="/dashboard/work-centers" replace />} />
+        <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
         <Route path="/dashboard/work-centers" element={<ProtectedRoute><WorkCenters /></ProtectedRoute>} />
+
+        {/* Maintenance Request Routes */}
+        <Route path="/dashboard/request/new" element={<ProtectedRoute><MaintenanceRequestPage /></ProtectedRoute>} />
+        <Route path="/dashboard/request/:id" element={<ProtectedRoute><MaintenanceRequestPage /></ProtectedRoute>} />
 
         {/* Placeholder routes for future pages - will be added by teammates */}
         {/* <Route path="/dashboard/equipment" element={<ProtectedRoute><Equipment /></ProtectedRoute>} /> */}
-        {/* <Route path="/dashboard/requests" element={<ProtectedRoute><Requests /></ProtectedRoute>} /> */}
         {/* <Route path="/dashboard/teams" element={<ProtectedRoute><Teams /></ProtectedRoute>} /> */}
         {/* <Route path="/dashboard/calendar" element={<ProtectedRoute><Calendar /></ProtectedRoute>} /> */}
         {/* <Route path="/dashboard/kanban" element={<ProtectedRoute><Kanban /></ProtectedRoute>} /> */}

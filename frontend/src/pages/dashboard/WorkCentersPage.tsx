@@ -1,5 +1,9 @@
+<<<<<<< Updated upstream
 import { useState } from 'react';
 import { Shield, Search, Calendar, Wrench, BarChart3, Users } from 'lucide-react';
+=======
+
+>>>>>>> Stashed changes
 
 interface WorkCenter {
     id: string;

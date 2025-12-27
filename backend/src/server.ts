@@ -5,6 +5,8 @@ import pool from './config/database';
 import authRoutes from './routes/auth';
 import equipmentRoutes from './routes/equipment';
 import requestRoutes from './routes/requests';
+import dashboardRoutes from './routes/dashboard';
+import maintenanceRoutes from './routes/maintenance';
 
 // Load environment variables
 dotenv.config();
@@ -28,6 +30,8 @@ app.use((req, res, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/equipment', equipmentRoutes);
 app.use('/api/requests', requestRoutes);
+app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/maintenance', maintenanceRoutes);
 
 // Health check endpoint
 app.get('/api/health', async (req: Request, res: Response) => {
