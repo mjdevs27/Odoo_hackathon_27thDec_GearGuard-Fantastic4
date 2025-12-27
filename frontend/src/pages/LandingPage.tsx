@@ -81,7 +81,10 @@ const LandingPage = () => {
                     >
                         {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                     </button>
-                    <button className="px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-all">
+                    <button
+                        onClick={() => window.location.href = '/login'}
+                        className="px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-all"
+                    >
                         Login
                     </button>
                 </div>
@@ -105,7 +108,10 @@ const LandingPage = () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                            <button className="group px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg shadow-xl shadow-blue-600/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                            <button
+                                onClick={() => window.location.href = '/signup'}
+                                className="group px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg shadow-xl shadow-blue-600/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2"
+                            >
                                 Get Started
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </button>
